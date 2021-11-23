@@ -26,40 +26,40 @@ export class Game {
 
     public Winner() : string {
         //if the positions in first row are taken
-        if (this._board.TileAt(0, 0)!.Symbol != ' ' &&
-                this._board.TileAt(0, 1)!.Symbol != ' ' &&
-                this._board.TileAt(0, 2)!.Symbol != ' ') {
+        if (this._board.GetSymbolAt(0, 0) != ' ' &&
+                this._board.GetSymbolAt(0, 1) != ' ' &&
+                this._board.GetSymbolAt(0, 2) != ' ') {
             //if first row is full with same symbol
-            if (this._board.TileAt(0, 0)!.Symbol ==
-                    this._board.TileAt(0, 1)!.Symbol &&
-                    this._board.TileAt(0, 2)!.Symbol == this._board.TileAt(0, 1)!.Symbol) {
-                return this._board.TileAt(0, 0)!.Symbol;
+            if (this._board.GetSymbolAt(0, 0) ==
+                    this._board.GetSymbolAt(0, 1) &&
+                    this._board.GetSymbolAt(0, 2) == this._board.GetSymbolAt(0, 1)) {
+                return this._board.GetSymbolAt(0, 0);
             }
         }
 
         //if the positions in first row are taken
-        if (this._board.TileAt(1, 0)!.Symbol != ' ' &&
-                this._board.TileAt(1, 1)!.Symbol != ' ' &&
-                this._board.TileAt(1, 2)!.Symbol != ' ') {
+        if (this._board.GetSymbolAt(1, 0) != ' ' &&
+                this._board.GetSymbolAt(1, 1) != ' ' &&
+                this._board.GetSymbolAt(1, 2) != ' ') {
             //if middle row is full with same symbol
-            if (this._board.TileAt(1, 0)!.Symbol ==
-                    this._board.TileAt(1, 1)!.Symbol &&
-                    this._board.TileAt(1, 2)!.Symbol ==
-                            this._board.TileAt(1, 1)!.Symbol) {
-                return this._board.TileAt(1, 0)!.Symbol;
+            if (this._board.GetSymbolAt(1, 0) ==
+                    this._board.GetSymbolAt(1, 1) &&
+                    this._board.GetSymbolAt(1, 2) ==
+                            this._board.GetSymbolAt(1, 1)) {
+                return this._board.GetSymbolAt(1, 0);
             }
         }
 
         //if the positions in first row are taken
-        if (this._board.TileAt(2, 0)!.Symbol != ' ' &&
-                this._board.TileAt(2, 1)!.Symbol != ' ' &&
-                this._board.TileAt(2, 2)!.Symbol != ' ') {
+        if (this._board.GetSymbolAt(2, 0) != ' ' &&
+                this._board.GetSymbolAt(2, 1) != ' ' &&
+                this._board.GetSymbolAt(2, 2) != ' ') {
             //if middle row is full with same symbol
-            if (this._board.TileAt(2, 0)!.Symbol ==
-                    this._board.TileAt(2, 1)!.Symbol &&
-                    this._board.TileAt(2, 2)!.Symbol ==
-                            this._board.TileAt(2, 1)!.Symbol) {
-                return this._board.TileAt(2, 0)!.Symbol;
+            if (this._board.GetSymbolAt(2, 0) ==
+                    this._board.GetSymbolAt(2, 1) &&
+                    this._board.GetSymbolAt(2, 2) ==
+                            this._board.GetSymbolAt(2, 1)) {
+                return this._board.GetSymbolAt(2, 0);
             }
         }
 
@@ -92,6 +92,10 @@ class Board
 
     public TileAt(x:  number, y: number): Tile {
         return this._plays.find((t:Tile) => t.X == x && t.Y == y)!
+    }
+
+    public GetSymbolAt(x:  number, y: number): string { 
+        return this.TileAt(x, y).Symbol;
     }
 
     public AddTileAt(symbol: string, x: number, y: number) : void
