@@ -10,8 +10,11 @@ export class Game {
   public Play(x: number, y: number): void {
     this.CheckIsValidPosition(this._nextSymbol, x, y);
 
-    // update game state
     this._board.AddTileAt(this._nextSymbol, x, y);
+    this.switchNextPlayer();
+  }
+
+  private switchNextPlayer() {
     this._nextSymbol = this._nextSymbol === Symbol.X ? Symbol.O : Symbol.X;
   }
 
@@ -26,7 +29,7 @@ export class Game {
 
     for (let i = 0; i < 3; i++) {
       winner = this.FindWinnerInARow(i);
-      if (winner != ' '){
+      if (winner != ' ') {
         break;
       }
     }
