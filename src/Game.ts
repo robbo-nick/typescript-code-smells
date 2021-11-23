@@ -8,19 +8,25 @@ export class Game {
   private _board: Board = new Board();
 
   public Play(symbol: Symbol, x: number, y: number): void {
-    //if first move
-    if (symbol !== this._nextSymbol) {
-      throw new Error('Invalid player moving');
-    }
 
-    //if not first move but play on an already played tile
-    else if (this._board.GetSymbolAt(x, y) != ' ') {
-      throw new Error('Invalid position');
-    }
+    this.CheckIsValidPlayer(symbol)
+    this.CheckIsValidPosition(symbol, x, y);
 
     // update game state
     this._nextSymbol = symbol === Symbol.X ? Symbol.O : Symbol.X;
     this._board.AddTileAt(symbol, x, y);
+  }
+
+  private CheckIsValidPlayer(symbol: Symbol) {
+    if (symbol !== this._nextSymbol) {
+      throw new Error('Invalid player moving');
+    }
+  }
+
+  private CheckIsValidPosition(symbol: Symbol, x: number, y: number) {
+    if (this._board.GetSymbolAt(x, y) != ' ') {
+      throw new Error('Invalid position');
+    }
   }
 
   public Winner(): string {
