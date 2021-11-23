@@ -4,22 +4,15 @@ export enum Symbol {
 }
 
 export class Game {
-  private _nextSymbol: string = Symbol.X;
+  private _nextSymbol: Symbol = Symbol.X;
   private _board: Board = new Board();
 
-  public Play(symbol: Symbol, x: number, y: number): void {
-    this.CheckIsValidPlayer(symbol);
-    this.CheckIsValidPosition(symbol, x, y);
+  public Play(x: number, y: number): void {
+    this.CheckIsValidPosition(this._nextSymbol, x, y);
 
     // update game state
-    this._nextSymbol = symbol === Symbol.X ? Symbol.O : Symbol.X;
-    this._board.AddTileAt(symbol, x, y);
-  }
-
-  private CheckIsValidPlayer(symbol: Symbol) {
-    if (symbol !== this._nextSymbol) {
-      throw new Error('Invalid player moving');
-    }
+    this._board.AddTileAt(this._nextSymbol, x, y);
+    this._nextSymbol = this._nextSymbol === Symbol.X ? Symbol.O : Symbol.X;
   }
 
   private CheckIsValidPosition(symbol: Symbol, x: number, y: number) {
@@ -33,6 +26,9 @@ export class Game {
 
     for (let i = 0; i < 3; i++) {
       winner = this.FindWinnerInARow(i);
+      if (winner != ' '){
+        break;
+      }
     }
 
     return winner;
