@@ -8,8 +8,7 @@ export class Game {
   private _board: Board = new Board();
 
   public Play(symbol: Symbol, x: number, y: number): void {
-
-    this.CheckIsValidPlayer(symbol)
+    this.CheckIsValidPlayer(symbol);
     this.CheckIsValidPosition(symbol, x, y);
 
     // update game state
@@ -30,51 +29,29 @@ export class Game {
   }
 
   public Winner(): string {
-    //if the positions in first row are taken
-    if (
-      this._board.GetSymbolAt(0, 0) != ' ' &&
-      this._board.GetSymbolAt(0, 1) != ' ' &&
-      this._board.GetSymbolAt(0, 2) != ' '
-    ) {
-      //if first row is full with same symbol
-      if (
-        this._board.GetSymbolAt(0, 0) == this._board.GetSymbolAt(0, 1) &&
-        this._board.GetSymbolAt(0, 2) == this._board.GetSymbolAt(0, 1)
-      ) {
-        return this._board.GetSymbolAt(0, 0);
-      }
+    let winner = ' ';
+
+    for (let i = 0; i < 3; i++) {
+      winner = this.FindWinnerInARow(i);
     }
 
-    //if the positions in first row are taken
+    return winner;
+  }
+
+  private FindWinnerInARow(row: number): string {
     if (
-      this._board.GetSymbolAt(1, 0) != ' ' &&
-      this._board.GetSymbolAt(1, 1) != ' ' &&
-      this._board.GetSymbolAt(1, 2) != ' '
+      this._board.GetSymbolAt(row, 0) != ' ' &&
+      this._board.GetSymbolAt(row, 1) != ' ' &&
+      this._board.GetSymbolAt(row, 2) != ' '
     ) {
       //if middle row is full with same symbol
       if (
-        this._board.GetSymbolAt(1, 0) == this._board.GetSymbolAt(1, 1) &&
-        this._board.GetSymbolAt(1, 2) == this._board.GetSymbolAt(1, 1)
+        this._board.GetSymbolAt(row, 0) == this._board.GetSymbolAt(row, 1) &&
+        this._board.GetSymbolAt(row, 2) == this._board.GetSymbolAt(row, 1)
       ) {
-        return this._board.GetSymbolAt(1, 0);
+        return this._board.GetSymbolAt(row, 0);
       }
     }
-
-    //if the positions in first row are taken
-    if (
-      this._board.GetSymbolAt(2, 0) != ' ' &&
-      this._board.GetSymbolAt(2, 1) != ' ' &&
-      this._board.GetSymbolAt(2, 2) != ' '
-    ) {
-      //if middle row is full with same symbol
-      if (
-        this._board.GetSymbolAt(2, 0) == this._board.GetSymbolAt(2, 1) &&
-        this._board.GetSymbolAt(2, 2) == this._board.GetSymbolAt(2, 1)
-      ) {
-        return this._board.GetSymbolAt(2, 0);
-      }
-    }
-
     return ' ';
   }
 }
